@@ -1,0 +1,67 @@
+<!DOCTYPE html> <!--EXTREMELY IMPORTANT: CTRL S on the html templates if you want to see your changes pop up-->
+<html>
+  <head> <!--Container for titles, metadata, etc. -->
+    <meta charset="utf-8" /> <!--What charracter set we use-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" /> <!--Content takes up width of screen-->
+    <link 
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    /> <!--Bootstrap is CSS framework good for styling website, this is the link to a CDN (You know what that is)-->
+    <script
+    src="https://code.jquery.com/jquery-3.6.4.js"
+    integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E="
+    crossorigin="anonymous">
+    </script>
+
+    <title>{% block title %}Home{% endblock %}</title> <!--The blocks are Jinja, content between ("Home") can be changed in a child template-->
+  </head>
+
+  <body> <!--Container for the actual content-->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <!--Nav bar is part of Bootstrap Classes, look up to learn-->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbar"
+      >
+        <span class="navbar-toggler-icon"></span> <!--Icon for the button-->
+      </button>
+      <div class="collapse navbar-collapse" id="navbar"> <!--Div is a division/section container for HTML elements, were making a collapsable navbar-->
+        <div class="navbar-nav"> <!--Actual navigation items-->
+          <a class="nav-item nav-link" id="home" href="/">Home</a> <!--"a" is just a link-->
+          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
+          <a class="nav-item nav-link" id="login" href="/login">Login</a>
+          <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class ="container">
+      {% block content %}
+      <form method="POST" action="{{ url_for('views.stock') }}"> <!--Sends an HTTP POST request to the URL in action, triggering the stock() function-->
+        <label for="ticker">Enter a stock ticker:</label>
+        <input type="text" name="ticker" id="ticker">
+        <input type="submit" value="Submit">
+      </form>
+      {% endblock %}
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script> <!--Links are the javascript related to bootstrap, all the animations and shit, research why all this is put at bottom-->
+  </body>
+</html>

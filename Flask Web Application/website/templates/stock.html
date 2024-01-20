@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block title %}Stocks{% endblock %} 
+
+{% block content %} 
+<h1>Stock price of {{ ticker }}</h1>
+<p id ="stock-price">Loading... (This may take a minute)</p>
+<script>
+    $(document).ready(function () { //When the document is ready
+        var ticker = '{{ ticker }}'; //Get the ticker from the previous stock() call in views
+        $.ajax({ //Make an ajax request
+            url: '/get_stock_price/' + ticker, //what url the request is going to 
+            type: 'GET', //what type of request it is, requests data from a specified source
+            success: function(data) { //Gets the return data of the funciton if it is succesful
+                if (data.price == null)
+                    $('#stock-price').text('Error');
+
+                $('#stock-price').text('$' + data.price);
+            },
+            error: function() {
+                $('#stock-price').text('Error');
+            }
+        });
+    });
+</script>
+{% endblock %}
